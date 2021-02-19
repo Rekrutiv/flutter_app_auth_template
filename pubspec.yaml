@@ -17,6 +17,8 @@ dependencies:
   firebase_core: ^0.7.0
   flutter_bloc: ^6.1.1
   google_sign_in: ^4.5.9
+  sembast: ^2.4.4+1
+  path_provider: ^1.6.10
 
 dev_dependencies:
   flutter_test:

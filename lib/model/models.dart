@@ -1,0 +1,1 @@
+export 'barcodes_model.dart';

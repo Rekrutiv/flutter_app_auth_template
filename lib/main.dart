@@ -2,10 +2,10 @@ import 'package:flutter_app_auth_template/app/observers/app_bloc_observer.dart';
 import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
 import 'package:flutter_app_auth_template/authenticaiton/data/providers/google_sign_in_provider.dart';
 import 'package:flutter_app_auth_template/authenticaiton/data/repositories/authenticaiton_repository.dart';
-import 'package:flutter_app_auth_template/home/views/home_main_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_auth_template/screen/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -33,12 +33,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Flutter Rekrutiv',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomeMainView(),
+        home:LoginMainView(),
       ),
     );
   }

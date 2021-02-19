@@ -1,6 +1,6 @@
 import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_auth_template/login/views/login_main_view.dart';
+import 'file:///E:/repository/flutter_app_auth_template/lib/screen/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeMainView extends StatelessWidget {
@@ -8,6 +8,7 @@ class HomeMainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.lightGreen,
         appBar: AppBar(
           title: Text('Home'),
           actions: [
