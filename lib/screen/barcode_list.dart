@@ -26,12 +26,15 @@ class _BarCodesListState extends State<BarCodesList> {
   @override
   Widget build(BuildContext context) {
     Future<List<BarCodes>> _checkList =dau.getAllCodes();
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text("BarCodes List"),
       ),
       body: Container(
         child: FutureBuilder<List<BarCodes>>(
+
           future: _checkList,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.none &&

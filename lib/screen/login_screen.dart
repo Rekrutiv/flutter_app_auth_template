@@ -6,6 +6,7 @@ import 'package:flutter_app_auth_template/model/barcodes_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'barcode_list.dart';
+import 'food_form.dart';
 //import 'home_screen.dart';
 
 class LoginMainView extends StatelessWidget {
@@ -33,7 +34,7 @@ class LoginMainView extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) =>
 //                          HomeMainView()
-                              BarCodesList()));
+                          FoodForm()));
                 } else if (state is AuthenticationFailiure) {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
