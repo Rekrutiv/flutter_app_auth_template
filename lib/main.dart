@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'authenticaiton/data/providers/authentication_firebase_provider.dart';
+import 'bloc/food_bloc.dart';
+import 'model/food.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,17 +23,23 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationBloc(
-        authenticationRepository: AuthenticationRepository(
-          authenticationFirebaseProvider: AuthenticationFirebaseProvider(
-            firebaseAuth: FirebaseAuth.instance,
+    List<Food> foods=[];
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<FoodBloc>(create: (context) => FoodBloc(foods)),
+        BlocProvider(create: (context) => AuthenticationBloc(
+          authenticationRepository: AuthenticationRepository(
+            authenticationFirebaseProvider: AuthenticationFirebaseProvider(
+              firebaseAuth: FirebaseAuth.instance,
+            ),
+            googleSignInProvider: GoogleSignInProvider(
+              googleSignIn: GoogleSignIn(),
+            ),
           ),
-          googleSignInProvider: GoogleSignInProvider(
-            googleSignIn: GoogleSignIn(),
-          ),
-        ),
-      ),
+        ),)
+      ],
+
+
       child: MaterialApp(
         title: 'Flutter Rekrutiv',
         theme: ThemeData(
