@@ -27,12 +27,28 @@ class FoodList extends StatelessWidget {
               padding: EdgeInsets.all(16),
               itemCount: foodList.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(foodList[index].name),
-                    subtitle: Text(foodList[index].responseUser),
-                    onTap: () => BlocProvider.of<FoodBloc>(context).add(
-                      FoodEvent.delete(index),
+                return ClipOval(
+                  child: Card(
+                    child: ListTile(
+                      title: Text(
+                        foodList[index].name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Open Sans',
+                            fontSize: 20),
+                      ),
+                      subtitle: Text(
+                        foodList[index].responseUser,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Open Sans',
+                            fontSize: 20),
+                      ),
+                      onTap: () => BlocProvider.of<FoodBloc>(context).add(
+                        FoodEvent.delete(index),
+                      ),
                     ),
                   ),
                 );

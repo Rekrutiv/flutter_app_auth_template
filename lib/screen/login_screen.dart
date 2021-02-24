@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'home_screen.dart';
 
 class LoginMainView extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
