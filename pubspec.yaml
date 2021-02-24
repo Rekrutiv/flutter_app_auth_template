@@ -19,6 +19,8 @@ dependencies:
   google_sign_in: ^4.5.9
   sembast: ^2.4.4+1
   path_provider: ^1.6.10
+  shared_preferences: ^0.5.12+4
+
 
 dev_dependencies:
   flutter_test:

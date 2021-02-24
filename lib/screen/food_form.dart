@@ -21,8 +21,6 @@ class _FoodFormState extends State<FoodForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffd7deff),
-      appBar: AppBar(title: Text('Coding')),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(36),
         child: Center(

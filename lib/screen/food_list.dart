@@ -1,13 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/bloc/food_bloc.dart';
 import 'package:flutter_app_auth_template/bloc/food_event.dart';
 import 'package:flutter_app_auth_template/model/food.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class FoodList extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
