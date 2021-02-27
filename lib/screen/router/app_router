@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/screen/login_screen.dart';
-import 'package:flutter_app_auth_template/screen/food_form.dart';
+//import 'package:flutter_app_auth_template/screen/food_form.dart';
 import 'package:flutter_app_auth_template/screen/home_screen.dart';
-
+import 'package:flutter_app_auth_template/screen/todo_page.dart';
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
     final GlobalKey<ScaffoldState> key = settings.arguments;
@@ -12,9 +12,9 @@ class AppRouter {
           builder: (_) =>LoginMainView(
           ),
         );
-      case '/food':
+      case '/todo':
         return MaterialPageRoute(
-          builder: (_) => FoodForm(
+          builder: (_) => TodoPage(
           ),
         );
       case '/home':

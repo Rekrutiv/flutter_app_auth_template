@@ -2,16 +2,15 @@ import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_blo
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/screen/home_screen.dart';
+import 'package:flutter_app_auth_template/screen/todo_page.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //import 'home_screen.dart';
 
 class LoginMainView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.deepOrange,
@@ -23,12 +22,8 @@ class LoginMainView extends StatelessWidget {
             return BlocConsumer<AuthenticationBloc, AuthenticationState>(
               listener: (context, state) {
                 if (state is AuthenticationSuccess) {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-//                          HomeMainView()
-                              HomeMainView()));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => HomeMainView()));
                 } else if (state is AuthenticationFailiure) {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
@@ -60,8 +55,6 @@ class LoginMainView extends StatelessWidget {
                       onPressed: () =>
                           BlocProvider.of<AuthenticationBloc>(context).add(
                         AuthenticationGoogleStarted(),
-
-
                       ),
                     ),
                   );
