@@ -1,22 +1,17 @@
 import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_auth_template/dao/barcode_dao.dart';
-import 'package:flutter_app_auth_template/model/barcodes_model.dart';
+import 'package:flutter_app_auth_template/screen/home_screen.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'barcode_list.dart';
 //import 'home_screen.dart';
 
 class LoginMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CodesDao dau = CodesDao();
-    dau.insertBooks(BarCodes(
-      barCode: int.parse("11111111111"),
-      responseuser: "Молоко",
-    ));
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.deepOrange,
@@ -33,7 +28,7 @@ class LoginMainView extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) =>
 //                          HomeMainView()
-                              BarCodesList()));
+                              HomeMainView()));
                 } else if (state is AuthenticationFailiure) {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
