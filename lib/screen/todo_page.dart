@@ -1,3 +1,4 @@
+import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_bloc.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_event.dart';
@@ -83,50 +84,58 @@ class TodoPage extends StatelessWidget {
       return Center(child: Text('No Todo Found'));
     }
 
-    return ListView.builder(
+    return LiveList(
 
-        padding: EdgeInsets.all(10),
+        // padding: EdgeInsets.all(10),
         itemCount: todos.length,
-        itemBuilder: (context, position) => ClipOval(
-              child: Card(
-                color: Colors.lime,
-                shadowColor: Colors.lightGreenAccent,
-                child: ListTile(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            fullscreenDialog: true,
-                            builder: (_) =>
-                                AddEditPage(todo: todos[position]))),
-                    title: Text(
-                      todos[position].todo,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Open Sans',
-                          fontSize: 22),
-                    ),
-                    subtitle: Text(
-                      todos[position].note,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Open Sans',
-                          fontSize: 20),
-                    ),
-                    leading: Checkbox(
-                      value: todos[position].isCompleted,
-                      onChanged: (_) {
-                        BlocProvider.of<TodoBloc>(context).add(TodoUpdated(
-                            todo: todos[position].copyWith(
-                                isCompleted: !todos[position].isCompleted)));
-                      },
-                    ),
-                    trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          BlocProvider.of<TodoBloc>(context)
-                              .add(TodoDeleted(todo: todos[position]));
-                        })),
-              ),
-            ));
+        itemBuilder: (context, position, animation) => FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: Offset(0, 0.9),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: ClipOval(
+                  child: Card(
+                    color: Colors.lime,
+                    shadowColor: Colors.lightGreenAccent,
+                    child: ListTile(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                fullscreenDialog: true,
+                                builder: (_) =>
+                                    AddEditPage(todo: todos[position]))),
+                        title: Text(
+                          todos[position].todo,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Open Sans',
+                              fontSize: 22),
+                        ),
+                        subtitle: Text(
+                          todos[position].note,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Open Sans',
+                              fontSize: 20),
+                        ),
+                        leading: Checkbox(
+                          value: todos[position].isCompleted,
+                          onChanged: (_) {
+                            BlocProvider.of<TodoBloc>(context).add(TodoUpdated(
+                                todo: todos[position].copyWith(
+                                    isCompleted:
+                                        !todos[position].isCompleted)));
+                          },
+                        ),
+                        trailing: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              BlocProvider.of<TodoBloc>(context)
+                                  .add(TodoDeleted(todo: todos[position]));
+                            })),
+                  ),
+                ))));
   }
 }
