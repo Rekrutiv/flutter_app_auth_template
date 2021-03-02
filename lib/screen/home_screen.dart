@@ -15,26 +15,26 @@ class HomeMainView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.lightGreen,
-        appBar: AppBar(
-          title: Text('Home'),
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.exit_to_app,
-                ),
-                onPressed: () async {
-                  BlocProvider.of<AuthenticationBloc>(context).add(
-                    AuthenticationExited(),
-                  );
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.remove('email');
-                  Navigator.of(context).pushNamed(
-                    '/',
-                  );
-                }),
-          ],
-        ),
+//        appBar: AppBar(
+//          title: Text('Home'),
+//          actions: [
+//            IconButton(
+//                icon: Icon(
+//                  Icons.exit_to_app,
+//                ),
+//                onPressed: () async {
+//                  BlocProvider.of<AuthenticationBloc>(context).add(
+//                    AuthenticationExited(),
+//                  );
+//                  SharedPreferences prefs =
+//                      await SharedPreferences.getInstance();
+//                  prefs.remove('email');
+//                  Navigator.of(context).pushNamed(
+//                    '/',
+//                  );
+//                }),
+//          ],
+//        ),
         body: Center(
           child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
             listener: (context, state) {

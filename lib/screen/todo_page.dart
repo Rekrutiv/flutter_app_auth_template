@@ -1,11 +1,13 @@
 import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_bloc.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_event.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_state.dart';
 import 'package:flutter_app_auth_template/model/todo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_edit_page.dart';
 
@@ -16,27 +18,47 @@ class TodoPage extends StatelessWidget {
       builder: (context, state) => SafeArea(
         child: Scaffold(
           backgroundColor: Colors.deepOrangeAccent,
-          appBar: AppBar(title: Text('Todo List'), actions: <PopupMenuButton>[
-            PopupMenuButton(
-                onSelected: (value) {
-                  if (value == 'mark_all_completed') {
-                    BlocProvider.of<TodoBloc>(context).add(MarkAllCompleted());
-                  } else if (value == 'delete_all_completed') {
-                    BlocProvider.of<TodoBloc>(context)
-                        .add(DeleteAllCompleted());
-                  }
-                },
-                itemBuilder: (_) => <PopupMenuItem>[
-                      PopupMenuItem(
-                        child: Text('Mark All Completed'),
-                        value: 'mark_all_completed',
-                      ),
-                      PopupMenuItem(
-                        child: Text('Delete All Completed'),
-                        value: 'delete_all_completed',
-                      )
-                    ])
-          ]),
+          appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(
+                    Icons.exit_to_app,
+                  ),
+                  onPressed: () async {
+                    BlocProvider.of<AuthenticationBloc>(context).add(
+                      AuthenticationExited(),
+                    );
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.remove('email');
+//                   MaterialPageRoute(builder: (context) =>LoginMainView());
+                    Navigator.of(context).pushNamed(
+                      '/',
+                    );
+                  }),
+              PopupMenuButton(
+                  onSelected: (value) {
+                    if (value == 'mark_all_completed') {
+                      BlocProvider.of<TodoBloc>(context)
+                          .add(MarkAllCompleted());
+                    } else if (value == 'delete_all_completed') {
+                      BlocProvider.of<TodoBloc>(context)
+                          .add(DeleteAllCompleted());
+                    }
+                  },
+                  itemBuilder: (_) => <PopupMenuItem>[
+                        PopupMenuItem(
+                          child: Text('Mark All Completed'),
+                          value: 'mark_all_completed',
+                        ),
+                        PopupMenuItem(
+                          child: Text('Delete All Completed'),
+                          value: 'delete_all_completed',
+                        )
+                      ])
+            ],
+            title: Text('Todo List'),
+          ),
           body: Stack(
             alignment: Alignment.topCenter,
             children: [

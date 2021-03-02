@@ -72,7 +72,7 @@ class AuthenticationBloc
       }
     } else if (event is AuthenticationExited) {
       try {
-        yield AuthenticationLoading();
+        yield AuthenticationInitial();
         await _authenticationRepository.unAuthenticate();
       } catch (error) {
         print('Error occured while logging out. : ${error.toString()}');
