@@ -21,36 +21,36 @@ class _CatPageState extends State<CatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Cat Breeds',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-        leading: InkWell(
-          borderRadius: BorderRadius.circular(30),
-          splashColor: Colors.black12,
-          onTap: () {},
-          child: Icon(
-            Icons.menu,
-            color: Colors.black87,
-          ),
-        ),
-        actions: <Widget>[
-          InkWell(
-            borderRadius: BorderRadius.circular(30),
-            splashColor: Colors.black12,
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: Icon(
-                Icons.search,
-                color: Colors.black87,
-              ),
-            ),
-          ),
-        ],
-      ),
+//      appBar: AppBar(
+//        title: Text(
+//          'Cat Breeds',
+//          style: TextStyle(color: Colors.black),
+//        ),
+//        backgroundColor: Colors.white,
+//        leading: InkWell(
+//          borderRadius: BorderRadius.circular(30),
+//          splashColor: Colors.black12,
+//          onTap: () {},
+//          child: Icon(
+//            Icons.menu,
+//            color: Colors.black87,
+//          ),
+//        ),
+//        actions: <Widget>[
+//          InkWell(
+//            borderRadius: BorderRadius.circular(30),
+//            splashColor: Colors.black12,
+//            onTap: () {},
+//            child: Padding(
+//              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+//              child: Icon(
+//                Icons.search,
+//                color: Colors.black87,
+//              ),
+//            ),
+//          ),
+//        ],
+//      ),
       body: tabs[_buttonIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _buttonIndex,

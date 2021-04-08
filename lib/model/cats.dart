@@ -1,10 +1,16 @@
-class Cat {
+import 'package:equatable/equatable.dart';
+
+
+class Cat extends Equatable {
   String id;
   String breed;
   String description;
   String imageUrl;
 
   Cat({this.id, this.breed, this.description});
+
+  @override
+  List<Object> get props => [id, breed, description];
 
   void setImage(String url) {
     imageUrl = url;
