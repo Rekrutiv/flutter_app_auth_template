@@ -4,6 +4,8 @@ import 'package:flutter_app_auth_template/screen/todo_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'cats/cat_page.dart';
+
 class HomeMainView extends StatelessWidget {
   void saveLogIn(String emailUser) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -55,7 +57,7 @@ class HomeMainView extends StatelessWidget {
                 //   SharedPreferences prefs = await SharedPreferences.getInstance();
                 saveLogIn(state.authenticationDetail.email);
 
-                return TodoPage();
+                return CatPage();
                 //Text('Welcome :${state.authenticationDetail.email}');
               }
               return Text('Undefined state : ${state.runtimeType}');

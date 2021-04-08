@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/screen/login_screen.dart';
-//import 'package:flutter_app_auth_template/screen/food_form.dart';
+import 'package:flutter_app_auth_template/screen/cats/cat_page.dart';
 import 'package:flutter_app_auth_template/screen/home_screen.dart';
 import 'package:flutter_app_auth_template/screen/todo_page.dart';
 class AppRouter {
