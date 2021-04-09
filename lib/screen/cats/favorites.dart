@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:hive/hive.dart';
 
 class Favorites extends StatefulWidget {
   @override
@@ -7,63 +7,63 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
-  //var favoriteCatsBox = Hive.box('favorite_cats');
+  var favoriteCatsBox = Hive.box('favorite_cats');
   List<String> favorites = [];
 
   @override
-//  void initState() {
-//    super.initState();
-//    readFavorites(favoriteCatsBox);
-//  }
+  void initState() {
+    super.initState();
+    readFavorites(favoriteCatsBox);
+  }
 
-//  void readFavorites(Box favoriteCatsBox) {
-//    for (int index = 0; index < favoriteCatsBox.length; index++) {
-//      favorites.add(favoriteCatsBox.getAt(index));
-//      favorites.sort();
-//    }
-//  }
+  void readFavorites(Box favoriteCatsBox) {
+    for (int index = 0; index < favoriteCatsBox.length; index++) {
+      favorites.add(favoriteCatsBox.getAt(index));
+      favorites.sort();
+    }
+  }
 
-//  void updateFavorites(Box favoriteCatsBox) {
-//    List<String> newFavorites = [];
-//    for (int index = 0; index < favoriteCatsBox.length; index++) {
-//      newFavorites.add(favoriteCatsBox.getAt(index));
-//      newFavorites.sort();
-//    }
-//    setState(() {
-//      favorites = newFavorites;
-//    });
-//  }
+  void updateFavorites(Box favoriteCatsBox) {
+    List<String> newFavorites = [];
+    for (int index = 0; index < favoriteCatsBox.length; index++) {
+      newFavorites.add(favoriteCatsBox.getAt(index));
+      newFavorites.sort();
+    }
+    setState(() {
+      favorites = newFavorites;
+    });
+  }
 
-//  Widget getIcon(String catId) {
-//    if (favoriteCatsBox.containsKey(catId)) {
-//      return (Icon(
-//        Icons.favorite,
-//        color: Colors.red,
-//        size: 30,
-//      ));
-//    }
-//    return (Icon(
-//      Icons.favorite_border,
-//      color: Colors.red,
-//      size: 30,
-//    ));
-//  }
+  Widget getIcon(String catId) {
+    if (favoriteCatsBox.containsKey(catId)) {
+      return (Icon(
+        Icons.favorite,
+        color: Colors.red,
+        size: 30,
+      ));
+    }
+    return (Icon(
+      Icons.favorite_border,
+      color: Colors.red,
+      size: 30,
+    ));
+  }
 
-//  void onTapFavorite(String catId) {
-//    if (favoriteCatsBox.containsKey(catId)) {
-//      favoriteCatsBox.delete(catId);
-//      setState(() {
-//        getIcon(catId);
-//        updateFavorites(favoriteCatsBox);
-//      });
-//    } else {
-//      favoriteCatsBox.put(catId, catId);
-//      setState(() {
-//        getIcon(catId);
-//        updateFavorites(favoriteCatsBox);
-//      });
-//    }
-//  }
+  void onTapFavorite(String catId) {
+    if (favoriteCatsBox.containsKey(catId)) {
+      favoriteCatsBox.delete(catId);
+      setState(() {
+        getIcon(catId);
+        updateFavorites(favoriteCatsBox);
+      });
+    } else {
+      favoriteCatsBox.put(catId, catId);
+      setState(() {
+        getIcon(catId);
+        updateFavorites(favoriteCatsBox);
+      });
+    }
+  }
 
   Widget build(BuildContext context) {
     if (favorites.length > 0) {
@@ -82,8 +82,8 @@ class _FavoritesState extends State<Favorites> {
                         title: Text(favoriteCat),
                         subtitle: Text('Description Here'),
                         trailing: GestureDetector(
-//                          onTap: () => onTapFavorite(favoriteCat),
-//                          child: getIcon(favoriteCat),
+                          onTap: () => onTapFavorite(favoriteCat),
+                          child: getIcon(favoriteCat),
                         ),
                       ),
                     ),

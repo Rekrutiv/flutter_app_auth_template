@@ -2,7 +2,6 @@ import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_blo
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/screen/home_screen.dart';
-import 'package:flutter_app_auth_template/screen/todo_page.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,6 +24,7 @@ class LoginMainView extends StatelessWidget {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => HomeMainView()));
                 } else if (state is AuthenticationFailiure) {
+                  // ignore: deprecated_member_use
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message),

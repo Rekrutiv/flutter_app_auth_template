@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-
 abstract class CatsEvent extends Equatable {
   const CatsEvent();
 
@@ -22,7 +21,6 @@ class FetchCats extends CatsEvent {
 }
 
 class RefreshCats extends CatsEvent {
-
   const RefreshCats();
 
   @override
@@ -30,44 +28,61 @@ class RefreshCats extends CatsEvent {
 }
 
 abstract class CatsState extends Equatable {
-  const CatsState();
-
   @override
   List<Object> get props => [];
 }
 
 class CatsEmpty extends CatsState {}
 
-class CatsLoading extends CatsState {}
+class CatsInitial extends CatsState {
+  @override
+  // TODO: implement props
+  List<Object> get props => [];
+}
+class CatsLoading extends CatsState {
+  @override
+  // TODO: implement props
+  List<Object> get props => [];
+}
 
 class CatsLoaded extends CatsState {
-  final List<Cat> cats;
+  List<Cat> cats;
 
-  const CatsLoaded({@required this.cats}) : assert(cats != null);
+  CatsLoaded({ @required this.cats});
 
   @override
   List<Object> get props => [cats];
 }
 
 class CatsLoadingError extends CatsState {
+  String error;
 
-  final String error;
-
-  const CatsLoadingError({@required this.error}) : assert(error != null);
+  CatsLoadingError({@required this.error});
 
   @override
   List<Object> get props => [error];
-
 }
 
-class CatsBloc extends Bloc<CatsEvent, CatsState> {
-  final CatsRepository catsRepository;
 
-  CatsBloc({@required this.catsRepository})
-      : assert(catsRepository != null), super(null);
+
+class CatsBloc extends Bloc<CatsEvent, CatsState> {
+  List<Cat> cats;
+
+  get currentState => state;
+
+  CatsRepository catsRepository;
+
+  CatsBloc(this.catsRepository) : super(null);
 
   @override
-  CatsState get initialState => CatsEmpty();
+  // TODO: implement initialState
+  CatsState get initialState => CatsInitial();
+
+  List<Cat> get getCats {
+    return cats;
+  }
+
+
 
   @override
   Stream<CatsState> mapEventToState(CatsEvent event) async* {
@@ -81,20 +96,22 @@ class CatsBloc extends Bloc<CatsEvent, CatsState> {
   Stream<CatsState> _mapFetchCatsToState(FetchCats event) async* {
     yield CatsLoading();
     try {
-      final List<Cat> cats = await catsRepository.getCats(false);
+
+       cats = await catsRepository.getData(0);
       yield CatsLoaded(cats: cats);
+      print(cats);
     } catch (e) {
+      print( e.toString());
       yield CatsLoadingError(error: e.toString());
     }
   }
 
   Stream<CatsState> _mapRefreshCatsToState(RefreshCats event) async* {
     try {
-      final List<Cat> cats = await catsRepository.getCats(true);
+      final List<Cat> cats = await  catsRepository.getData(0);
       yield CatsLoaded(cats: cats);
     } catch (_) {
       yield state;
     }
   }
 }
-

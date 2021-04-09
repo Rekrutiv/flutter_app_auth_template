@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../login_screen.dart';
+
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,10 +25,13 @@ class ProfilePage extends StatelessWidget {
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   prefs.remove('email');
+                  print('remove email');
                   Navigator.of(context).pushNamed(
                     '/',
                   );
                 }),
+
+
           ],
         ),
         body: Center(

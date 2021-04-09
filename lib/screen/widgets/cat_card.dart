@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-//import 'package:hive/hive.dart';
+import 'package:hive/hive.dart';
 
 class CatCard extends StatelessWidget {
   final String breed;
@@ -70,37 +70,37 @@ class _CatImageState extends State<CatImage> {
     super.initState();
   }
 
-  ///var favoriteCatsBox = Hive.box('favorite_cats');
+  var favoriteCatsBox = Hive.box('favorite_cats');
 
-//  Widget getIcon(String catId) {
-//    if (favoriteCatsBox.containsKey(catId)) {
-//      return (Icon(
-//        Icons.favorite,
-//        color: Colors.red,
-//        size: 30,
-//      ));
-//    }
-//    return (Icon(
-//      Icons.favorite_border,
-//      color: Colors.red,
-//      size: 30,
-//    ));
-//  }
+  Widget getIcon(String catId) {
+    if (favoriteCatsBox.containsKey(catId)) {
+      return (Icon(
+        Icons.favorite,
+        color: Colors.red,
+        size: 30,
+      ));
+    }
+    return (Icon(
+      Icons.favorite_border,
+      color: Colors.red,
+      size: 30,
+    ));
+  }
 
-//  void onTapFavorite(String catId) {
-//    if (favoriteCatsBox.containsKey(catId)) {
-//      favoriteCatsBox.delete(catId);
-//      setState(() {
-//        getIcon(catId);
-//      });
-//    }
-//    else{
-//      favoriteCatsBox.put(catId, catId);
-//      setState(() {
-//        getIcon(catId);
-//      });
-//    }
-//  }
+  void onTapFavorite(String catId) {
+    if (favoriteCatsBox.containsKey(catId)) {
+      favoriteCatsBox.delete(catId);
+      setState(() {
+        getIcon(catId);
+      });
+    }
+    else{
+      favoriteCatsBox.put(catId, catId);
+      setState(() {
+        getIcon(catId);
+      });
+    }
+  }
 
   Widget build(BuildContext context) {
     return Container(
@@ -126,8 +126,8 @@ class _CatImageState extends State<CatImage> {
           bottom: 25.0,
           right: 25,
           child: InkWell(
-//              onTap: () => onTapFavorite(widget.catId),
-//              child: getIcon(widget.catId)
+              onTap: () => onTapFavorite(widget.catId),
+              child: getIcon(widget.catId)
               ),
         ),
       ]),
