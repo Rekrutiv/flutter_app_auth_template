@@ -2,20 +2,20 @@ import 'package:equatable/equatable.dart';
 
 class Todo extends Equatable{
   final int id;
-  final String todo;
-  final String note;
+  final String breed;
+  final String imageUrl;
   final bool isCompleted;
 
-  Todo({this.id, this.note, this.todo, this.isCompleted = false});
+  Todo({this.id, this.imageUrl, this.breed, this.isCompleted = false});
 
   @override
-  List<Object> get props => [id, todo, note, isCompleted];
+  List<Object> get props => [id, breed, imageUrl, isCompleted];
 
   Todo copyWith({int id, String todo, String note, bool isCompleted}){
     return Todo(
       id: id ?? this.id,
-      todo: todo ?? this.todo,
-      note: note ?? this.note,
+      breed: todo ?? this.breed,
+      imageUrl: note ?? this.imageUrl,
       isCompleted: isCompleted ?? this.isCompleted
     );
   }
@@ -23,8 +23,8 @@ class Todo extends Equatable{
   Map<String, dynamic> toMap(){
     return {
       'id': id,
-      'todo': todo,
-      'note': note,
+      'todo': breed,
+      'note': imageUrl,
       'isCompleted': isCompleted ? 1 : 0
     };
   }
@@ -32,8 +32,8 @@ class Todo extends Equatable{
   factory Todo.fromMap(Map<String, dynamic> map){
     return Todo(
       id: map['id'],
-      todo: map['todo'],
-      note: map['note'],
+      breed: map['todo'],
+      imageUrl: map['note'],
       isCompleted: map['isCompleted'] == 1 ? true : false
     );
   }

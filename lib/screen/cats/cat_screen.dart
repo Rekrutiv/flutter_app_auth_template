@@ -44,10 +44,9 @@ class _CatsScreenState extends State<CatsScreen> {
                     itemBuilder: (context, index) {
                       final currentCat = cats[index];
                       return CatCard(
-                        breed: currentCat.breed ?? 'yyy',
-                        imageUrl: currentCat.imageUrl ?? 'yyy',
-                        description: currentCat.description ??
-                            'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
+                        breed: currentCat.breed ,
+                        imageUrl: currentCat.imageUrl ,
+                        description: currentCat.description,
                       );
                     });
           }

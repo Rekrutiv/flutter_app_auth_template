@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/screen/cats/cat_screen.dart';
-import 'package:flutter_app_auth_template/screen/cats/favorites.dart';
 import 'package:flutter_app_auth_template/screen/cats/profile_page.dart';
+import 'package:flutter_app_auth_template/screen/todo_page.dart';
 
 
 
@@ -15,7 +15,7 @@ class CatPage extends StatefulWidget {
 class _CatPageState extends State<CatPage> {
   int _buttonIndex = 0;
 
-  final tabs = [CatsScreen(), Favorites(), ProfilePage()];
+  final tabs = [CatsScreen(), TodoPage(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {

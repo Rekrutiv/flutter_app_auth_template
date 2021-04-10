@@ -5,7 +5,7 @@ import 'package:flutter_app_auth_template/screen/cats/cat_screen.dart';
 import 'package:flutter_app_auth_template/services/cats_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+
 
 class HomeMainView extends StatelessWidget {
   void saveLogIn(String emailUser) async {

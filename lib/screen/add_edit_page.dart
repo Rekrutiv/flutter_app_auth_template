@@ -23,8 +23,8 @@ class AddEditPageState extends State<AddEditPage>{
   @override
   void initState() {
     if(widget.todo != null){
-      _todoController.text = widget.todo.todo;
-      _noteController.text = widget.todo.note;
+      _todoController.text = widget.todo.breed;
+      _noteController.text = widget.todo.imageUrl;
     }
     super.initState();
   }
@@ -81,8 +81,8 @@ class AddEditPageState extends State<AddEditPage>{
 
                   if(widget.todo == null){
                     BlocProvider.of<TodoBloc>(context).add(TodoAdded(todo: Todo(
-                        todo: _todoController.text,
-                        note: _noteController.text
+                        breed: _todoController.text,
+                        imageUrl: _noteController.text
                     )));
                   }else{
                     BlocProvider.of<TodoBloc>(context).add(TodoUpdated(todo: widget.todo.copyWith(

@@ -80,7 +80,8 @@ class TodoPage extends StatelessWidget {
               Container(
                   padding:
                       EdgeInsets.symmetric(vertical: 40.0, horizontal: 10.0),
-                  child: _buildBody(state.todos)),
+                  child:
+                  _buildBody(state.todos)),
             ],
           ),
 //        _buildBody(state.todos),
@@ -129,14 +130,14 @@ class TodoPage extends StatelessWidget {
                                 builder: (_) =>
                                     AddEditPage(todo: todos[position]))),
                         title: Text(
-                          todos[position].todo,
+                          todos[position].breed,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Open Sans',
                               fontSize: 22),
                         ),
                         subtitle: Text(
-                          todos[position].note,
+                          todos[position].imageUrl,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Open Sans',
