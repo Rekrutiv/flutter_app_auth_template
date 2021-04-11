@@ -26,11 +26,11 @@ class CatCard extends StatelessWidget {
         onTap: () {},
         child: Column(
           children: <Widget>[
-            CatImage(imageUrl: imageUrl, catId: breed),
+            CatImage(imageUrl: imageUrl, breed: breed),
             SizedBox(height: 20),
-            BreedNameText(breed: breed),
+//            BreedNameText(breed: breed),
             SizedBox(height: 10),
-            PartialDescription(description: description),
+//            PartialDescription(description: description),
           ],
         ),
       ),
@@ -38,34 +38,35 @@ class CatCard extends StatelessWidget {
   }
 }
 
-class BreedNameText extends StatelessWidget {
-  final String breed;
-
-  BreedNameText({this.breed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          breed,
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 26,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//class BreedNameText extends StatelessWidget {
+//  final String breed;
+//
+//  BreedNameText({this.breed});
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Container(
+//      padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
+//      child: Align(
+//        alignment: Alignment.centerLeft,
+//        child: Text(
+//          breed,
+//          style: TextStyle(
+//            color: Colors.black87,
+//            fontSize: 26,
+//          ),
+//        ),
+//      ),
+//    );
+//  }
+//}
 
 class CatImage extends StatefulWidget {
   final catId;
   final imageUrl;
+  final breed;
 
-  const CatImage({this.imageUrl, this.catId});
+  const CatImage({this.imageUrl, this.catId, this.breed});
 
   @override
   _CatImageState createState() => _CatImageState();
@@ -79,8 +80,8 @@ class _CatImageState extends State<CatImage> {
 
 
 
-  Widget getIcon(int catId, List<Todo> todos) {
-    var contain = todos.where((element) => element.id == catId.toString());
+  Widget getIcon(String imageUrl, List<Todo> todos) {
+    var contain = todos.where((element) => element.imageUrl == imageUrl.toString());
 
     if (contain.isNotEmpty) {
       return (Icon(
@@ -97,15 +98,15 @@ class _CatImageState extends State<CatImage> {
     }
   }
 
-  void onTapFavorite(int catId, List<Todo> todos, ) {
-    var contain = todos.where((element) => element.id == catId.toString());
+  void onTapFavorite(String imageUrl, List<Todo> todos, ) {
+    var contain = todos.where((element) => element.id == imageUrl.toString());
     if (contain.isNotEmpty) {
       BlocProvider.of<TodoBloc>(context)
           .add(TodoDeleted(todo: todos[1]));
     } else {
 
       BlocProvider.of<TodoBloc>(context)
-          .add(TodoAdded(todo: Todo(id: catId, breed: 'widget.imageUrl', imageUrl:'jcvbjbj',isCompleted: false )));
+          .add(TodoAdded(todo: Todo(id:widget.catId, breed: widget.breed, imageUrl:widget.imageUrl,isCompleted: false )));
     }
   }
 
@@ -135,8 +136,8 @@ class _CatImageState extends State<CatImage> {
             right: 25,
             child: InkWell(
                 onTap: () =>
-                onTapFavorite(widget.catId,state.todos),
-                child: getIcon(widget.catId, state.todos)),
+                onTapFavorite(widget.imageUrl,state.todos),
+                child: getIcon(widget.imageUrl, state.todos)),
           ),
         ]),
       ),
@@ -144,37 +145,37 @@ class _CatImageState extends State<CatImage> {
   }
 }
 
-class PartialDescription extends StatelessWidget {
-  final String description;
-
-  PartialDescription({this.description});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Description',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              description.substring(0, 50) + '...',
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.justify,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//class PartialDescription extends StatelessWidget {
+//  final String description;
+//
+//  PartialDescription({this.description});
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Column(
+//      children: [
+//        Container(
+//          padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+//          child: Align(
+//            alignment: Alignment.centerLeft,
+//            child: Text(
+//              'Description',
+//              style: TextStyle(fontSize: 20),
+//            ),
+//          ),
+//        ),
+//        Container(
+//          padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
+//          child: Align(
+//            alignment: Alignment.centerLeft,
+//            child: Text(
+//              description.substring(0, 50) + '...',
+//              style: TextStyle(fontSize: 16),
+//              textAlign: TextAlign.justify,
+//            ),
+//          ),
+//        ),
+//      ],
+//    );
+//  }
+//}

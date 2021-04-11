@@ -70,7 +70,7 @@ class TodoPage extends StatelessWidget {
                   color: Colors.cyan,
                   child: Align(
                       alignment: Alignment.topCenter,
-                      child: Text('List of Food',
+                      child: Text('List of Favorites Cat',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Open Sans',
@@ -108,7 +108,6 @@ class TodoPage extends StatelessWidget {
     }
 
     return LiveList(
-
         // padding: EdgeInsets.all(10),
         itemCount: todos.length,
         itemBuilder: (context, position, animation) => FadeTransition(
@@ -122,27 +121,36 @@ class TodoPage extends StatelessWidget {
                   child: Card(
                     color: Colors.lime,
                     shadowColor: Colors.lightGreenAccent,
-                    child: ListTile(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                fullscreenDialog: true,
-                                builder: (_) =>
-                                    AddEditPage(todo: todos[position]))),
-                        title: Text(
-                          todos[position].breed,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Open Sans',
-                              fontSize: 22),
-                        ),
-                        subtitle: Text(
-                          todos[position].imageUrl,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Open Sans',
-                              fontSize: 20),
-                        ),
+                    child:
+                    Column(
+                      children: [CircleAvatar(
+                          radius: 100,
+                          backgroundImage:
+                          NetworkImage(todos[position].imageUrl,)
+
+                      ),
+                        ListTile(
+
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    fullscreenDialog: true,
+                                    builder: (_) =>
+                                        AddEditPage(todo: todos[position]))),
+                            title: Text(
+                              todos[position].breed??"no breed",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Open Sans',
+                                  fontSize: 22),
+                            ),
+//                            subtitle: Text(
+//                              todos[position].imageUrl,
+//                              style: TextStyle(
+//                                  fontWeight: FontWeight.w500,
+//                                  fontFamily: 'Open Sans',
+//                                  fontSize: 20),
+//                            ),
                         leading: Checkbox(
                           value: todos[position].isCompleted,
                           onChanged: (_) {
@@ -152,12 +160,14 @@ class TodoPage extends StatelessWidget {
                                         !todos[position].isCompleted)));
                           },
                         ),
-                        trailing: IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              BlocProvider.of<TodoBloc>(context)
-                                  .add(TodoDeleted(todo: todos[position]));
-                            })),
+                            trailing: IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  BlocProvider.of<TodoBloc>(context)
+                                      .add(TodoDeleted(todo: todos[position]));
+                                })),
+                      ],
+                    ),
                   ),
                 ))));
   }
