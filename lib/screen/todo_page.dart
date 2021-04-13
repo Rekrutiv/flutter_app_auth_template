@@ -1,15 +1,15 @@
 import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
+//import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_bloc.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_event.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_state.dart';
 import 'package:flutter_app_auth_template/model/todo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'add_edit_page.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//
+//import 'add_edit_page.dart';
 
 class TodoPage extends StatelessWidget {
   @override
@@ -20,22 +20,22 @@ class TodoPage extends StatelessWidget {
           backgroundColor: Colors.deepOrangeAccent,
           appBar: AppBar(
             actions: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.exit_to_app,
-                  ),
-                  onPressed: () async {
-                    BlocProvider.of<AuthenticationBloc>(context).add(
-                      AuthenticationExited(),
-                    );
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.remove('email');
-//                   MaterialPageRoute(builder: (context) =>LoginMainView());
-                    Navigator.of(context).pushNamed(
-                      '/',
-                    );
-                  }),
+//              IconButton(
+//                  icon: Icon(
+//                    Icons.exit_to_app,
+//                  ),
+//                  onPressed: () async {
+//                    BlocProvider.of<AuthenticationBloc>(context).add(
+//                      AuthenticationExited(),
+//                    );
+//                    SharedPreferences prefs =
+//                        await SharedPreferences.getInstance();
+//                    prefs.remove('email');
+////                   MaterialPageRoute(builder: (context) =>LoginMainView());
+//                    Navigator.of(context).pushNamed(
+//                      '/',
+//                    );
+//                  }),
               PopupMenuButton(
                   onSelected: (value) {
                     if (value == 'mark_all_completed') {
@@ -70,7 +70,7 @@ class TodoPage extends StatelessWidget {
                   color: Colors.cyan,
                   child: Align(
                       alignment: Alignment.topCenter,
-                      child: Text('List of Favorites Cat',
+                      child: Text(' Favorites Cat',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Open Sans',
@@ -80,19 +80,18 @@ class TodoPage extends StatelessWidget {
               Container(
                   padding:
                       EdgeInsets.symmetric(vertical: 40.0, horizontal: 10.0),
-                  child:
-                  _buildBody(state.todos)),
+                  child: _buildBody(state.todos)),
             ],
           ),
 //        _buildBody(state.todos),
-          floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        fullscreenDialog: true, builder: (_) => AddEditPage()));
-              }),
+//          floatingActionButton: FloatingActionButton(
+//              child: Icon(Icons.add),
+//              onPressed: () {
+//                Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                        fullscreenDialog: true, builder: (_) => AddEditPage()));
+//              }),
         ),
       ),
     );
@@ -117,58 +116,80 @@ class TodoPage extends StatelessWidget {
                   begin: Offset(0, 0.9),
                   end: Offset.zero,
                 ).animate(animation),
-                child: ClipOval(
-                  child: Card(
-                    color: Colors.lime,
-                    shadowColor: Colors.lightGreenAccent,
-                    child:
-                    Column(
-                      children: [CircleAvatar(
-                          radius: 100,
-                          backgroundImage:
-                          NetworkImage(todos[position].imageUrl,)
-
-                      ),
-                        ListTile(
-
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    fullscreenDialog: true,
-                                    builder: (_) =>
-                                        AddEditPage(todo: todos[position]))),
-                            title: Text(
-                              todos[position].breed??"no breed",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Open Sans',
-                                  fontSize: 22),
-                            ),
-//                            subtitle: Text(
-//                              todos[position].imageUrl,
-//                              style: TextStyle(
-//                                  fontWeight: FontWeight.w500,
-//                                  fontFamily: 'Open Sans',
-//                                  fontSize: 20),
-//                            ),
-                        leading: Checkbox(
+                child: Card(
+                  color: Colors.lime,
+                  shadowColor: Colors.lightGreenAccent,
+                  child: Column(children: [
+                    Container(
+                        child: Image.network(
+                      todos[position].imageUrl,
+                    )),
+//                      ListTile(
+//                          onTap: () => Navigator.push(
+//                              context,
+//                              MaterialPageRoute(
+//                                  fullscreenDialog: true,
+//                                  builder: (_) =>
+//                                      AddEditPage(todo: todos[position]))),
+//                          title: Text(
+//                            todos[position].breed ?? "no breed",
+//                            style: TextStyle(
+//                                fontWeight: FontWeight.w500,
+//                                fontFamily: 'Open Sans',
+//                                fontSize: 22),
+//                          ),
+////                            subtitle: Text(
+////                              todos[position].imageUrl,
+////                              style: TextStyle(
+////                                  fontWeight: FontWeight.w500,
+////                                  fontFamily: 'Open Sans',
+////                                  fontSize: 20),
+////                            ),
+//                          leading: Checkbox(
+//                            value: todos[position].isCompleted,
+//                            onChanged: (_) {
+//                              BlocProvider.of<TodoBloc>(context).add(
+//                                  TodoUpdated(
+//                                      todo: todos[position].copyWith(
+//                                          isCompleted:
+//                                              !todos[position].isCompleted)));
+//                            },
+//                          ),
+//                          trailing: IconButton(
+//                              icon: Icon(Icons.delete),
+//                              onPressed: () {
+//                                BlocProvider.of<TodoBloc>(context)
+//                                    .add(TodoDeleted(todo: todos[position]));
+//                              })),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Checkbox(
                           value: todos[position].isCompleted,
                           onChanged: (_) {
-                            BlocProvider.of<TodoBloc>(context).add(TodoUpdated(
-                                todo: todos[position].copyWith(
-                                    isCompleted:
-                                        !todos[position].isCompleted)));
+                            BlocProvider.of<TodoBloc>(context).add(
+                                TodoUpdated(
+                                    todo: todos[position].copyWith(
+                                        isCompleted:
+                                            !todos[position].isCompleted)));
                           },
                         ),
-                            trailing: IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () {
-                                  BlocProvider.of<TodoBloc>(context)
-                                      .add(TodoDeleted(todo: todos[position]));
-                                })),
+                        Text(
+                          todos[position].breed ?? "no breed",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Open Sans',
+                              fontSize: 22),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              BlocProvider.of<TodoBloc>(context)
+                                  .add(TodoDeleted(todo: todos[position]));
+                            })
                       ],
-                    ),
-                  ),
+                    )
+                  ]),
                 ))));
   }
 }

@@ -9,7 +9,6 @@ import 'package:flutter_app_auth_template/screen/cats/cat_page.dart';
 import 'package:flutter_app_auth_template/services/cats_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'authenticaiton/data/providers/authentication_firebase_provider.dart';
 import 'blocs/cat_list/cats_bloc.dart';
@@ -17,7 +16,6 @@ import 'blocs/todo/todo_bloc.dart';
 import 'blocs/todo/todo_event.dart';
 import 'db/todo_provider.dart';
 import 'package:flutter_app_auth_template/screen/router/app_router';
-import 'package:hive_flutter/hive_flutter.dart';
 //void main() async {
 //  WidgetsFlutterBinding.ensureInitialized();
 //  await Firebase.initializeApp();
@@ -25,8 +23,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 //  runApp(MyApp());
 //}
 Future<void> main() async {
-  await Hive.initFlutter();
-  await Hive.openBox('favorite_cats');
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

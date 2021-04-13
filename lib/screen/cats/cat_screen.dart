@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/blocs/cat_list/cats_bloc.dart';
+import 'package:flutter_app_auth_template/screen/cats/cat_detail.dart';
 import 'package:flutter_app_auth_template/screen/widgets/cat_card.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,20 +36,32 @@ class _CatsScreenState extends State<CatsScreen> {
           if (state is CatsLoaded) {
             final cats = state.cats;
 
-            return
-                // Text(cats.toString());
-                ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(8.0),
-                    itemCount: cats.length,
-                    itemBuilder: (context, index) {
-                      final currentCat = cats[index];
-                      return CatCard(
-                        breed: currentCat.breed ,
-                        imageUrl: currentCat.imageUrl ,
+            return ListView.builder(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8.0),
+                itemCount: cats.length,
+                itemBuilder: (context, index) {
+                  final currentCat = cats[index];
+                  return InkWell(
+                    onTap: () {
+//                      print(currentCat.imageUrl);
+//                      Navigator.push(
+//                      context,
+//                      MaterialPageRoute(builder: (context) =>
+//                      CatDetail(currentCat.imageUrl,currentCat.description)),
+//                    );
+                      },
+                    child: Hero(
+                      tag: 'imgHero${currentCat.imageUrl}',
+                      child: CatCard(
+                        breed: currentCat.breed,
+                        imageUrl: currentCat.imageUrl,
                         description: currentCat.description,
-                      );
-                    });
+                      ),
+
+                    ),
+                  );
+                });
           }
           if (state is CatsLoadingError) {
             return Text(

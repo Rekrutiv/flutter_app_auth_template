@@ -1,11 +1,11 @@
-import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_bloc.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_event.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_state.dart';
 import 'package:flutter_app_auth_template/model/todo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_app_auth_template/screen/cats/cat_detail.dart';
 
 class CatCard extends StatelessWidget {
   final String breed;
@@ -23,10 +23,14 @@ class CatCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(30),
         splashColor: Colors.black12,
-        onTap: () {},
+        onTap: () {Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>
+              CatDetail(imageUrl, description)),
+        );},
         child: Column(
           children: <Widget>[
-            CatImage(imageUrl: imageUrl, breed: breed),
+            CatImage(imageUrl: imageUrl),
             SizedBox(height: 20),
 //            BreedNameText(breed: breed),
             SizedBox(height: 10),
@@ -37,29 +41,6 @@ class CatCard extends StatelessWidget {
     );
   }
 }
-
-//class BreedNameText extends StatelessWidget {
-//  final String breed;
-//
-//  BreedNameText({this.breed});
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
-//      child: Align(
-//        alignment: Alignment.centerLeft,
-//        child: Text(
-//          breed,
-//          style: TextStyle(
-//            color: Colors.black87,
-//            fontSize: 26,
-//          ),
-//        ),
-//      ),
-//    );
-//  }
-//}
 
 class CatImage extends StatefulWidget {
   final catId;
@@ -73,40 +54,31 @@ class CatImage extends StatefulWidget {
 }
 
 class _CatImageState extends State<CatImage> {
+  var contain;
+
   @override
   void initState() {
     super.initState();
+   //+ List<Todo> todos;
   }
 
 
-
-  Widget getIcon(String imageUrl, List<Todo> todos) {
-    var contain = todos.where((element) => element.imageUrl == imageUrl.toString());
-
+  void onTapFavorite(
+    String imageUrl,
+    List<Todo> todos,
+  ) {
+    //row["name"].contains(value))
+    contain = todos.where((row) => (row.imageUrl.contains(imageUrl)));
+    //element.imageUrl == imageUrl.toString());
     if (contain.isNotEmpty) {
-      return (Icon(
-        Icons.favorite,
-        color: Colors.red,
-        size: 30,
-      ));
+      BlocProvider.of<TodoBloc>(context).add(TodoDeleted(todo: todos[1]));
     } else {
-      return (Icon(
-        Icons.favorite_border,
-        color: Colors.red,
-        size: 30,
-      ));
-    }
-  }
-
-  void onTapFavorite(String imageUrl, List<Todo> todos, ) {
-    var contain = todos.where((element) => element.id == imageUrl.toString());
-    if (contain.isNotEmpty) {
-      BlocProvider.of<TodoBloc>(context)
-          .add(TodoDeleted(todo: todos[1]));
-    } else {
-
-      BlocProvider.of<TodoBloc>(context)
-          .add(TodoAdded(todo: Todo(id:widget.catId, breed: widget.breed, imageUrl:widget.imageUrl,isCompleted: false )));
+      BlocProvider.of<TodoBloc>(context).add(TodoAdded(
+          todo: Todo(
+              id: widget.catId,
+              breed: widget.breed,
+              imageUrl: widget.imageUrl,
+              isCompleted: false)));
     }
   }
 
@@ -117,27 +89,42 @@ class _CatImageState extends State<CatImage> {
         child: Stack(children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(30),
-            child: Image.network(
-              widget.imageUrl,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, progress) {
-                return progress == null
-                    ? child
-                    : Container(
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-              },
+            child: CachedNetworkImage(
+              imageUrl: widget.imageUrl,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
-          new Positioned(
+          Positioned(
             bottom: 25.0,
             right: 25,
             child: InkWell(
-                onTap: () =>
-                onTapFavorite(widget.imageUrl,state.todos),
-                child: getIcon(widget.imageUrl, state.todos)),
+                onTap: () => {
+                      // contain = state.todos.where((element) => element.imageUrl == widget.imageUrl.toString());
+                      onTapFavorite(widget.imageUrl, state.todos),
+                    },
+                child: Builder(
+                    builder: (context) {
+                      // any logic needed...
+                      //final condition = _whateverLogicNeeded();
+                      if (state.todos.where((row) => (row.imageUrl.contains(widget.imageUrl))).isNotEmpty) {
+                        return (Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                          size: 30,
+                        ));
+                      } else {
+                        return (Icon(
+                          Icons.favorite_border,
+                          color: Colors.red,
+                          size: 30,
+                        ));
+                      }
+
+                    }
+                )
+               // getIcon(widget.imageUrl, state.todos)
+            ),
           ),
         ]),
       ),
@@ -145,37 +132,3 @@ class _CatImageState extends State<CatImage> {
   }
 }
 
-//class PartialDescription extends StatelessWidget {
-//  final String description;
-//
-//  PartialDescription({this.description});
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Column(
-//      children: [
-//        Container(
-//          padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
-//          child: Align(
-//            alignment: Alignment.centerLeft,
-//            child: Text(
-//              'Description',
-//              style: TextStyle(fontSize: 20),
-//            ),
-//          ),
-//        ),
-//        Container(
-//          padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
-//          child: Align(
-//            alignment: Alignment.centerLeft,
-//            child: Text(
-//              description.substring(0, 50) + '...',
-//              style: TextStyle(fontSize: 16),
-//              textAlign: TextAlign.justify,
-//            ),
-//          ),
-//        ),
-//      ],
-//    );
-//  }
-//}

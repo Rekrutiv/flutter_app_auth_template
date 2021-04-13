@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/screen/cats/cat_screen.dart';
-import 'package:flutter_app_auth_template/screen/cats/profile_page.dart';
+import 'package:flutter_app_auth_template/screen/cats/profile_screen.dart';
 import 'package:flutter_app_auth_template/screen/todo_page.dart';
 
 
