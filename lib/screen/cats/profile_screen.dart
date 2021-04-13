@@ -1,8 +1,8 @@
 import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_auth_template/screen/widgets/auto_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -29,8 +29,6 @@ class ProfilePage extends StatelessWidget {
                     '/',
                   );
                 }),
-
-
           ],
         ),
         body: Center(
@@ -51,14 +49,22 @@ class ProfilePage extends StatelessWidget {
                 return CircularProgressIndicator();
               } else if (state is AuthenticationSuccess) {
                 return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
                       radius: 100.0,
                       backgroundImage:
                           NetworkImage(state.authenticationDetail.photoUrl),
                     ),
-                    Text(state.authenticationDetail.email),
-                    Text(state.authenticationDetail.name),
+                    AutoTextWidget(
+                        autoText: state.authenticationDetail.email,
+                        textFontSize: 40,
+                        textStep: 10),
+                    AutoTextWidget(
+                        autoText: state.authenticationDetail.name,
+                        textFontSize: 40,
+                        textStep: 10)
+                    //Text(state.authenticationDetail.name),
                   ],
                 );
               }
