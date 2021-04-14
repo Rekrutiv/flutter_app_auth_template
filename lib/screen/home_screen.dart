@@ -1,10 +1,11 @@
 import 'package:flutter_app_auth_template/authenticaiton/bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/blocs/cat_list/cats_bloc.dart';
-import 'package:flutter_app_auth_template/screen/cats/cat_screen.dart';
 import 'package:flutter_app_auth_template/services/cats_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'cats/cat_page.dart';
 
 
 class HomeMainView extends StatelessWidget {
@@ -42,7 +43,7 @@ class HomeMainView extends StatelessWidget {
                   //   SharedPreferences prefs = await SharedPreferences.getInstance();
                   saveLogIn(state.authenticationDetail.email);
 
-                  return CatsScreen();
+                  return CatPage();
                   //Text('Welcome :${state.authenticationDetail.email}');
                 }
                 return Text('Undefined state : ${state.runtimeType}');

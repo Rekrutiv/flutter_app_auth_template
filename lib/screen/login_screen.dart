@@ -23,6 +23,8 @@ class LoginMainView extends StatelessWidget {
                 if (state is AuthenticationSuccess) {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => HomeMainView()));
+
+
                 } else if (state is AuthenticationFailiure) {
                   // ignore: deprecated_member_use
                   Scaffold.of(context).showSnackBar(
