@@ -4,15 +4,16 @@ import 'package:flutter_app_auth_template/blocs/todo/todo_bloc.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_event.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_state.dart';
 import 'package:flutter_app_auth_template/model/todo.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_app_auth_template/screen/cats/cat_detail.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CatCard extends StatelessWidget {
+  final int id;
   final String breed;
   final String imageUrl;
-  final String description;
+  final bool condition;
 
-  const CatCard({this.breed, this.imageUrl, this.description});
+  const CatCard({this.id, this.breed, this.imageUrl, this.condition});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +24,14 @@ class CatCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(30),
         splashColor: Colors.black12,
-        onTap: () {Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>
-              CatDetail(imageUrl, description)),
-        );},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    CatDetail(id, imageUrl, breed, condition)),
+          );
+        },
         child: Column(
           children: <Widget>[
             CatImage(imageUrl: imageUrl),
@@ -59,19 +63,18 @@ class _CatImageState extends State<CatImage> {
   @override
   void initState() {
     super.initState();
-   //+ List<Todo> todos;
+    //+ List<Todo> todos;
   }
-
 
   void onTapFavorite(
     String imageUrl,
     List<Todo> todos,
   ) {
     //row["name"].contains(value))
-    contain = todos.where((row) => (row.imageUrl.contains(imageUrl)));
-    //element.imageUrl == imageUrl.toString());
-    if (contain.isNotEmpty) {
-      BlocProvider.of<TodoBloc>(context).add(TodoDeleted(todo: todos[1]));
+    contain = todos.indexWhere((row) => (row.imageUrl.contains(imageUrl)));
+    // print(contain);
+    if (contain >= 0) {
+      BlocProvider.of<TodoBloc>(context).add(TodoDeleted(todo: todos[contain]));
     } else {
       BlocProvider.of<TodoBloc>(context).add(TodoAdded(
           todo: Todo(
@@ -103,32 +106,30 @@ class _CatImageState extends State<CatImage> {
                       // contain = state.todos.where((element) => element.imageUrl == widget.imageUrl.toString());
                       onTapFavorite(widget.imageUrl, state.todos),
                     },
-                child: Builder(
-                    builder: (context) {
-                      // any logic needed...
-                      //final condition = _whateverLogicNeeded();
-                      if (state.todos.where((row) => (row.imageUrl.contains(widget.imageUrl))).isNotEmpty) {
-                        return (Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                          size: 30,
-                        ));
-                      } else {
-                        return (Icon(
-                          Icons.favorite_border,
-                          color: Colors.red,
-                          size: 30,
-                        ));
-                      }
-
-                    }
-                )
-               // getIcon(widget.imageUrl, state.todos)
-            ),
+                child: Builder(builder: (context) {
+                  // any logic needed...
+                  //final condition = _whateverLogicNeeded();
+                  if (state.todos
+                      .where((row) => (row.imageUrl.contains(widget.imageUrl)))
+                      .isNotEmpty) {
+                    return (Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 30,
+                    ));
+                  } else {
+                    return (Icon(
+                      Icons.favorite_border,
+                      color: Colors.red,
+                      size: 30,
+                    ));
+                  }
+                })
+                // getIcon(widget.imageUrl, state.todos)
+                ),
           ),
         ]),
       ),
     );
   }
 }
-

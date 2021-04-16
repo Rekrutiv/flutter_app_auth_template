@@ -43,22 +43,14 @@ class _CatsScreenState extends State<CatsScreen> {
                 itemBuilder: (context, index) {
                   final currentCat = cats[index];
                   return InkWell(
-                    onTap: () {
-//                      print(currentCat.imageUrl);
-//                      Navigator.push(
-//                      context,
-//                      MaterialPageRoute(builder: (context) =>
-//                      CatDetail(currentCat.imageUrl,currentCat.description)),
-//                    );
-                      },
+                    onTap: () {},
                     child: Hero(
                       tag: 'imgHero${currentCat.imageUrl}',
                       child: CatCard(
                         breed: currentCat.breed,
                         imageUrl: currentCat.imageUrl,
-                        description: currentCat.description,
+                        condition: true,
                       ),
-
                     ),
                   );
                 });
