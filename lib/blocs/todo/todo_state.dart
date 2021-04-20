@@ -1,24 +1,40 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/model/todo.dart';
 
+abstract class TodoState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
 
-class TodoState extends Equatable{
+class TodoEmpty extends TodoState {}
 
-  final List<Todo> todos;
+class TodoInitial extends TodoState {
+  @override
+  // TODO: implement props
+  List<Object> get props => [];
+}
+class TodoLoading extends TodoState {
+  @override
+  // TODO: implement props
+  List<Object> get props => [];
+}
 
-  factory TodoState.initial(){
-//    List<Todo> todos = [
-//         Todo(id: 1, todo: 'Learn Dart',note:'b',isCompleted: true),
-//
-//       ];
+class TodoLoaded extends TodoState {
+  List<Todo> todos;
 
-    return TodoState(
-      todos: null,
-    );
-  }
-
-  TodoState({this.todos});
+  TodoLoaded({ @required this.todos});
 
   @override
   List<Object> get props => [todos];
 }
+
+class TodoLoadingError extends TodoState {
+  String error;
+
+  TodoLoadingError({@required this.error});
+
+  @override
+  List<Object> get props => [error];
+}
+

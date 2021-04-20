@@ -6,7 +6,7 @@ class LoadTodo extends TodoEvent{}
 
 class MarkAllCompleted extends TodoEvent{}
 
-class DeleteAllCompleted extends TodoEvent{}
+//class DeleteAllCompleted extends TodoEvent{}
 
 class TodoUpdated extends TodoEvent{
   final Todo todo;

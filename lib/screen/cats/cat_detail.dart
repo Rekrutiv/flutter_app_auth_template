@@ -52,7 +52,8 @@ class _CatDetailState extends State<CatDetail> {
                         Icons.delete,
                       ),
                       onPressed: () async {
-                        todos = state.todos;
+                        todos = (state as TodoLoaded)
+                            .todos;
                         contain = todos.indexWhere(
                             (row) => (row.imageUrl.contains(catImage)));
                         print(contain);

@@ -99,7 +99,6 @@ class CatsBloc extends Bloc<CatsEvent, CatsState> {
 
        cats = await catsRepository.getData(0);
       yield CatsLoaded(cats: cats);
-      print(cats);
     } catch (e) {
       print( e.toString());
       yield CatsLoadingError(error: e.toString());

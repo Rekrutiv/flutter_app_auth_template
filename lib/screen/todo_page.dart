@@ -1,21 +1,33 @@
 import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_bloc.dart';
-import 'package:flutter_app_auth_template/blocs/todo/todo_event.dart';
 import 'package:flutter_app_auth_template/blocs/todo/todo_state.dart';
 import 'package:flutter_app_auth_template/model/todo.dart';
 import 'package:flutter_app_auth_template/screen/widgets/cat_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
-
 class TodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodoBloc, TodoState>(
-      builder: (context, state) => SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.deepOrangeAccent,
+      builder: (context, state) {
+        if (state is TodoLoading) {
+          return Center(
+            child:
+                //Text('loading')
+                Image.asset(
+              "assets/loader.gif",
+              height: 150.0,
+              width: 150.0,
+            ),
+          );
+        }
+        if (state is TodoLoaded) {
+          final todos = (state).todos;
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.deepOrangeAccent,
 //          appBar: AppBar(
 //            actions: <Widget>[
 ////              IconButton(
@@ -57,41 +69,34 @@ class TodoPage extends StatelessWidget {
 //            ],
 //            title: Text('Todo List'),
 //          ),
-          body: Stack(
-            alignment: Alignment.topCenter,
-            children: [
-              ClipPath(
-                clipper: WaveClipperOne(reverse: false),
-                child: Container(
-                  height: MediaQuery.of(context).size.width * 0.8,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  color: Colors.cyan,
-                  child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(' Favorites Cat',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Open Sans',
-                              fontSize: 40))),
+              body: Stack(alignment: Alignment.topCenter, children: [
+                ClipPath(
+                  clipper: WaveClipperOne(reverse: false),
+                  child: Container(
+                    height: MediaQuery.of(context).size.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    color: Colors.cyan,
+                    child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(' Favorites Cat',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Open Sans',
+                                fontSize: 40))),
+                  ),
                 ),
-              ),
-              Container(
+                Container(
                   padding:
                       EdgeInsets.symmetric(vertical: 40.0, horizontal: 10.0),
-                  child: _buildBody(state.todos)),
-            ],
-          ),
-//        _buildBody(state.todos),
-//          floatingActionButton: FloatingActionButton(
-//              child: Icon(Icons.add),
-//              onPressed: () {
-//                Navigator.push(
-//                    context,
-//                    MaterialPageRoute(
-//                        fullscreenDialog: true, builder: (_) => AddEditPage()));
-//              }),
-        ),
-      ),
+                  child:
+                  _buildBody(todos),
+                ),
+              ]),
+            ),
+          );
+        }
+        return CircularProgressIndicator();
+      },
     );
   }
 
@@ -120,6 +125,7 @@ class TodoPage extends StatelessWidget {
                   breed: todos[position].breed,
                   imageUrl: todos[position].imageUrl,
                   condition: false,
+                  todos: todos,
                 ),
               ),
             )));
